@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    history
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Symbol</th>
+                <th class="text-end">Shares</th>
+                <th class="text-end">Price</th>
+                <th class="text-end">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for share in shares%}
+                <tr>
+                    <td class="text-start">{{share["symbol"]}}</td>
+                    {% if share["status"] == "sold" %}
+                        <td class="text-end">-{{share["shares"]}}</td>
+                    {% elif share["status"] == "purchased" %}
+                        <td class="text-end">{{share["shares"]}}</td>
+                    {% endif%}
+                    <td class="text-end">${{share["price"] | usd}}</td>
+                    <td class="text-end">${{share["time"]}}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
